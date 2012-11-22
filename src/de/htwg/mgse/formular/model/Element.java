@@ -20,5 +20,7 @@ public abstract class Element {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+	
+	public abstract String toHtml();
 
 }

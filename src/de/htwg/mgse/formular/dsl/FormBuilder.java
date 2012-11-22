@@ -3,6 +3,9 @@ package de.htwg.mgse.formular.dsl;
 import de.htwg.mgse.formular.model.Formular;
 import de.htwg.mgse.formular.model.Input;
 import de.htwg.mgse.formular.model.InputType;
+import de.htwg.mgse.formular.model.Button;
+import de.htwg.mgse.formular.model.ButtonType;
+import de.htwg.mgse.formular.model.Checkbox;
 
 public class FormBuilder {
 
@@ -18,12 +21,20 @@ public class FormBuilder {
 	public static class FormScope {
 		private final Formular formular;
 
-		public FormScope(Formular formular) {
+		private FormScope(Formular formular) {
 			this.formular = formular;
 		}
 
 		public InputScopeLabel input(String inputId) {
 			return new InputScopeLabel(this, new Input(inputId));
+		}
+		
+		public CheckboxScopeLabel checkbox(String checkboxId) {
+			return new CheckboxScopeLabel(this, new Checkbox(checkboxId));
+		}
+		
+		public ButtonScopeLabel button(String buttonId) {
+			return new ButtonScopeLabel(this, new Button(buttonId));
 		}
 		
 		public Formular generate() {
@@ -34,46 +45,132 @@ public class FormBuilder {
 			private final FormScope fs;
 			private final Input input;
 
-			public InputScopeLabel(FormScope fs, Input input) {
+			private InputScopeLabel(FormScope fs, Input input) {
 				this.fs = fs;
 				this.input = input;
 			}
 
 			public InputScopeType label(String label) {
-				return new InputScopeType(fs, input, label);
+				input.setLabel(label);
+				return new InputScopeType(fs, input);
 			}
 
 			public static class InputScopeType {
-				private final String label;
 				private final Input input;
 				private final FormScope fs;
 
-				public InputScopeType(FormScope fs, Input input, String label) {
+				private InputScopeType(FormScope fs, Input input) {
 					this.fs = fs;
 					this.input = input;
-					this.label = label;
 				}
 
-				public InputScopeDefaultValue type(InputType type) {
-					return new InputScopeDefaultValue(fs, input, type);
+				public InputScopeDefaultValueText setTypeToPassword() {
+					input.setType(InputType.PASSWORD);
+					return new InputScopeDefaultValueText(fs, input);
+				}
+				
+				public InputScopeDefaultValueText setTypeToText() {
+					input.setType(InputType.TEXT);
+					return new InputScopeDefaultValueText(fs, input);
+				}
+				
+				public InputScopeDefaultValueInt setTypeToInt() {
+					input.setType(InputType.INT);
+					return new InputScopeDefaultValueInt(fs, input);
 				}
 
-				public static class InputScopeDefaultValue {
+				public static class InputScopeDefaultValueText {
 					private final FormScope fs;
 					private final Input input;
-					private final InputType type;
 
-					public InputScopeDefaultValue(FormScope fs, Input input,
-							InputType type) {
+					private InputScopeDefaultValueText(FormScope fs, Input input) {
 						this.fs = fs;
 						this.input = input;
-						this.type = type;
 					}
 
 					public FormScope defaultValue(String defaultValue) {
+						input.setDefaultValue(defaultValue);
 						fs.formular.addElement(input);
 						return fs;
 					}
+				}
+				
+				public static class InputScopeDefaultValueInt {
+					private final FormScope fs;
+					private final Input input;
+
+					private InputScopeDefaultValueInt(FormScope fs, Input input) {
+						this.fs = fs;
+						this.input = input;
+					}
+
+					public FormScope defaultValue(int defaultValue) {
+						input.setDefaultValue(new Integer(defaultValue).toString());
+						fs.formular.addElement(input);
+						return fs;
+					}
+				}
+			}
+		}
+		
+		public static class CheckboxScopeLabel {
+			private final FormScope fs;
+			private final Checkbox checkbox;
+
+			private CheckboxScopeLabel(FormScope fs, Checkbox checkbox) {
+				this.fs = fs;
+				this.checkbox = checkbox;
+			}
+
+			public CheckboxScopeChecked label(String label) {
+				checkbox.setLabel(label);
+				return new CheckboxScopeChecked(fs, checkbox);
+			}
+
+			public static class CheckboxScopeChecked {
+				private final Checkbox checkbox;
+				private final FormScope fs;
+
+				private CheckboxScopeChecked(FormScope fs, Checkbox checkbox) {
+					this.fs = fs;
+					this.checkbox = checkbox;
+				}
+
+				public FormScope checked(boolean checked) {
+					checkbox.setChecked(checked);
+					fs.formular.addElement(checkbox);
+					return fs;
+				}
+			}
+		}
+		
+		public static class ButtonScopeLabel {
+			private final FormScope fs;
+			private final Button button;
+
+			private ButtonScopeLabel(FormScope fs, Button button) {
+				this.fs = fs;
+				this.button = button;
+			}
+
+			public CheckboxScopeChecked label(String label) {
+				button.setLabel(label);
+				return new CheckboxScopeChecked(fs, button);
+			}
+
+			public static class CheckboxScopeChecked {
+				private final Button button;
+				private final FormScope fs;
+
+				private CheckboxScopeChecked(FormScope fs, Button button) {
+					this.fs = fs;
+					this.button = button;
+				}
+
+				public FormScope type(ButtonType type) {
+					button.setType(type);
+					fs.formular.addElement(button);
+					return fs;
 				}
 			}
 		}
