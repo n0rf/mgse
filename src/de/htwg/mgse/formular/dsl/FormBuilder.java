@@ -18,7 +18,7 @@ public class FormBuilder {
 	public static class FormScope {
 		private final Formular formular;
 
-		public FormScope(Formular formular) {
+		private FormScope(Formular formular) {
 			this.formular = formular;
 		}
 
@@ -34,43 +34,41 @@ public class FormBuilder {
 			private final FormScope fs;
 			private final Input input;
 
-			public InputScopeLabel(FormScope fs, Input input) {
+			private InputScopeLabel(FormScope fs, Input input) {
 				this.fs = fs;
 				this.input = input;
 			}
 
 			public InputScopeType label(String label) {
-				return new InputScopeType(fs, input, label);
+				input.setLabel(label);
+				return new InputScopeType(fs, input);
 			}
 
 			public static class InputScopeType {
-				private final String label;
 				private final Input input;
 				private final FormScope fs;
 
-				public InputScopeType(FormScope fs, Input input, String label) {
+				private InputScopeType(FormScope fs, Input input) {
 					this.fs = fs;
 					this.input = input;
-					this.label = label;
 				}
 
 				public InputScopeDefaultValue type(InputType type) {
-					return new InputScopeDefaultValue(fs, input, type);
+					input.setType(type);
+					return new InputScopeDefaultValue(fs, input);
 				}
 
 				public static class InputScopeDefaultValue {
 					private final FormScope fs;
 					private final Input input;
-					private final InputType type;
 
-					public InputScopeDefaultValue(FormScope fs, Input input,
-							InputType type) {
+					private InputScopeDefaultValue(FormScope fs, Input input) {
 						this.fs = fs;
 						this.input = input;
-						this.type = type;
 					}
 
 					public FormScope defaultValue(String defaultValue) {
+						input.setDefaultValue(defaultValue);
 						fs.formular.addElement(input);
 						return fs;
 					}
