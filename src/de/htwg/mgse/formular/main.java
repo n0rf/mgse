@@ -17,6 +17,7 @@ public class Main {
 						.input("street").label("Street").type(TEXT).defaultValue("Musterweg 23")
 						.input("zip").label("ZIP Code").type(UINT).defaultValue("12345")
 						.input("city").label("City").type(TEXT).defaultValue("Musterhausen")
+						.checkbox("primary").label("Primary address").checked(true)
 					 .generate();
 		
 		String html = f.toHtml();

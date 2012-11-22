@@ -1,5 +1,6 @@
 package de.htwg.mgse.formular.dsl;
 
+import de.htwg.mgse.formular.model.Checkbox;
 import de.htwg.mgse.formular.model.Formular;
 import de.htwg.mgse.formular.model.Input;
 import de.htwg.mgse.formular.model.InputType;
@@ -24,6 +25,10 @@ public class FormBuilder {
 
 		public InputScopeLabel input(String inputId) {
 			return new InputScopeLabel(this, new Input(inputId));
+		}
+		
+		public CheckboxScopeLabel checkbox(String checkboxId) {
+			return new CheckboxScopeLabel(this, new Checkbox(checkboxId));
 		}
 		
 		public Formular generate() {
@@ -72,6 +77,37 @@ public class FormBuilder {
 						fs.formular.addElement(input);
 						return fs;
 					}
+				}
+			}
+		}
+		
+		public static class CheckboxScopeLabel {
+			private final FormScope fs;
+			private final Checkbox checkbox;
+
+			private CheckboxScopeLabel(FormScope fs, Checkbox checkbox) {
+				this.fs = fs;
+				this.checkbox = checkbox;
+			}
+
+			public CheckboxScopeChecked label(String label) {
+				checkbox.setLabel(label);
+				return new CheckboxScopeChecked(fs, checkbox);
+			}
+
+			public static class CheckboxScopeChecked {
+				private final Checkbox checkbox;
+				private final FormScope fs;
+
+				private CheckboxScopeChecked(FormScope fs, Checkbox checkbox) {
+					this.fs = fs;
+					this.checkbox = checkbox;
+				}
+
+				public FormScope checked(boolean checked) {
+					checkbox.setChecked(checked);
+					fs.formular.addElement(checkbox);
+					return fs;
 				}
 			}
 		}
