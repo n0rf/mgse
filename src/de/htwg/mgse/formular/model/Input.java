@@ -26,8 +26,16 @@ public class Input extends Element {
 	}
 	
 	public String toHtml() {
-		return	"\t" + label + ":<br />\n" + 
-				"\t<input name=\"" + id + "\" value=\"" + defaultValue + "\" type=\"" + type.toString() + "\" /><br />\n";
+		String prefix = "\t" + label + ":<br />\n";
+		String intCheck = "onkeypress=\"return (function(e){var c = (e.which) ? e.which : event.keyCode; return !(c != 46 && c > 31 && (c < 48 || c > 57)); })(event)\"";
+		switch (type) {
+		case PASSWORD:
+			return prefix + "\t<input name=\"" + id + "\" value=\"" + defaultValue + "\" type=\"password\" /><br />\n";
+		case INT:
+			return prefix + "\t<input name=\"" + id + "\" value=\"" + defaultValue + "\" type=\"text\" " + intCheck + " /><br />\n";
+		default:
+			return prefix + "\t<input name=\"" + id + "\" value=\"" + defaultValue + "\" type=\"text\" /><br />\n";
+		}
 	}
 
 }

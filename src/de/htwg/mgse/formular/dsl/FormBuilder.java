@@ -64,22 +64,48 @@ public class FormBuilder {
 					this.input = input;
 				}
 
-				public InputScopeDefaultValue type(InputType type) {
-					input.setType(type);
-					return new InputScopeDefaultValue(fs, input);
+				public InputScopeDefaultValueText setTypeToPassword() {
+					input.setType(InputType.PASSWORD);
+					return new InputScopeDefaultValueText(fs, input);
+				}
+				
+				public InputScopeDefaultValueText setTypeToText() {
+					input.setType(InputType.TEXT);
+					return new InputScopeDefaultValueText(fs, input);
+				}
+				
+				public InputScopeDefaultValueInt setTypeToInt() {
+					input.setType(InputType.INT);
+					return new InputScopeDefaultValueInt(fs, input);
 				}
 
-				public static class InputScopeDefaultValue {
+				public static class InputScopeDefaultValueText {
 					private final FormScope fs;
 					private final Input input;
 
-					private InputScopeDefaultValue(FormScope fs, Input input) {
+					private InputScopeDefaultValueText(FormScope fs, Input input) {
 						this.fs = fs;
 						this.input = input;
 					}
 
 					public FormScope defaultValue(String defaultValue) {
 						input.setDefaultValue(defaultValue);
+						fs.formular.addElement(input);
+						return fs;
+					}
+				}
+				
+				public static class InputScopeDefaultValueInt {
+					private final FormScope fs;
+					private final Input input;
+
+					private InputScopeDefaultValueInt(FormScope fs, Input input) {
+						this.fs = fs;
+						this.input = input;
+					}
+
+					public FormScope defaultValue(int defaultValue) {
+						input.setDefaultValue(new Integer(defaultValue).toString());
 						fs.formular.addElement(input);
 						return fs;
 					}
