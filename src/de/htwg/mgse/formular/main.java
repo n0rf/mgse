@@ -2,6 +2,7 @@ package de.htwg.mgse.formular;
 
 import static de.htwg.mgse.formular.dsl.FormBuilder.*;
 import static de.htwg.mgse.formular.model.InputType.*;
+import static de.htwg.mgse.formular.model.ButtonType.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -18,6 +19,9 @@ public class Main {
 						.input("zip").label("ZIP Code").type(UINT).defaultValue("12345")
 						.input("city").label("City").type(TEXT).defaultValue("Musterhausen")
 						.checkbox("primary").label("Primary address").checked(true)
+						.button("reset").label("Reset").type(RESET)
+						.button("submit").label("Send").type(SUBMIT)
+						.button("clickme").label("Click me!").type(SIMPLE)
 					 .generate();
 		
 		String html = f.toHtml();
