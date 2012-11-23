@@ -27,7 +27,7 @@ public class Input extends Element {
 	
 	public String toHtml() {
 		String prefix = "\t" + label + ":<br />\n";
-		String intCheck = "onkeypress=\"return (function(e){var c = (e.which) ? e.which : event.keyCode; return !(c != 46 && c > 31 && (c < 48 || c > 57)); })(event)\"";
+		String intCheck = "onkeypress=\"return (function(e){var c = (e.which) ? e.which : event.keyCode; return !(c != 0 && c != 47 && c != 37 && c != 39 && c > 31 && (c < 48 || c > 57)); })(event)\"";
 		switch (type) {
 		case PASSWORD:
 			return prefix + "\t<input name=\"" + id + "\" value=\"" + defaultValue + "\" type=\"password\" /><br />\n";
