@@ -1,4 +1,4 @@
-package de.htwg.mgse.formular.model;
+package de.htwg.mgse.form.model;
 
 public abstract class Element {
 

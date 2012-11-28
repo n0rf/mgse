@@ -1,17 +1,17 @@
-package de.htwg.mgse.formular;
+package de.htwg.mgse.form;
 
-import static de.htwg.mgse.formular.dsl.FormBuilder.*;
-import static de.htwg.mgse.formular.model.ButtonType.*;
+import static de.htwg.mgse.form.dsl.FormBuilder.*;
+import static de.htwg.mgse.form.model.ButtonType.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-import de.htwg.mgse.formular.model.Formular;
+import de.htwg.mgse.form.model.Form;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		Formular f = form("address")
+		Form f = form("address")
 						.input("fname").label("First Name").setTypeToText().defaultValue("Michael")
 						.input("lname").label("Last Name").setTypeToText().defaultValue("Muster")
 						.input("street").label("Street").setTypeToText().defaultValue("Musterweg 23")
@@ -25,10 +25,10 @@ public class Main {
 					 .generate();
 		
 		String html = f.toHtml();
-		SaveToFile(html, "formular.html");
+		saveToFile(html, "formular.html");
 	}
 	
-	public static void SaveToFile(String text, String fileName) {
+	public static void saveToFile(String text, String fileName) {
 		try {
 			PrintWriter out = new PrintWriter(fileName);
 			out.println(text);

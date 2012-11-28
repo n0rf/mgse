@@ -1,15 +1,15 @@
-package de.htwg.mgse.formular.model;
+package de.htwg.mgse.form.model;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Formular {
+public class Form {
 
 	private String id;
 
 	private List<Element> elements = new LinkedList<Element>();
 
-	public Formular(String id) {
+	public Form(String id) {
 		this.id = id;
 	}
 
