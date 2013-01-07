@@ -184,19 +184,24 @@ public class SwingGenerator implements IGenerator {
 
 	private void setupClassEnd() {
 		appendToSB(sb, "JScrollPane scrollPane = new JScrollPane(container);", 2);
-		appendToSB(sb, "frame.add(scrollPane);", 2);
-		appendToSB(sb, "frame.pack();", 2);
-		appendToSB(sb, "frame.setVisible(true);", 2);
-		appendToSB(sb, "frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);", 2);
+		appendToSB(sb, "add(scrollPane);", 2);
+		appendToSB(sb, "pack();", 2);
+		appendToSB(sb, "setVisible(true);", 2);
+		appendToSB(sb, "setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);", 2);
 		appendToSB(sb, "}", 1);
 		appendToSB(sb, "}", 0);
 	}
 
 	private void setupClassBegin(String name) {
-		appendToSB(sb, "public class " + name + " {", 0);
-		//appendToSB(sb, "public address() {", 1);
+		appendToSB(sb, "public class " + name + " extends JFrame {", 0);
 		appendToSB(sb, "public static void main(String[] args) {", 1);
-		appendToSB(sb, "JFrame frame = new JFrame(\"" + name + " Formular\");", 2);
+		appendToSB(sb, "new " + name + "();", 2);
+		appendToSB(sb, "}", 1);
+		
+		appendToSB(sb, "public " + name + "() {", 1);
+		//appendToSB(sb, "public address() {", 1);
+		//appendToSB(sb, "JFrame frame = new JFrame(\"" + name + " Formular\");", 2);
+		appendToSB(sb, "setTitle(\"" + name + " Formular\");", 2);
 		appendToSB(sb, "JPanel container = new JPanel();", 2);
 		appendToSB(sb, "container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));", 2);
 	}
