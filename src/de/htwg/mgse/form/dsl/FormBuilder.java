@@ -19,8 +19,8 @@ public class FormBuilder {
 	 *            The unique form ID.
 	 * @return A {@link FormScope} that can be used to add new form elements.
 	 */
-	public static FormScope form(String formId) {
-		Form formular = new Form(formId);
+	public static FormScope form(String formId, String formName) {
+		Form formular = new Form(formId, formName);
 		FormScope fscope = new FormScope(formular);
 		return fscope;
 	}

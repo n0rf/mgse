@@ -9,7 +9,7 @@ import de.htwg.mgse.form.model.Form;
 public class Main {
 	
 	public static void main(String[] args) {
-		Form f = form("address")
+		Form f = form("address", "Address")
 						.input("fname").label("First Name").setTypeToText().defaultValue("Michael")
 						.input("lname").label("Last Name").setTypeToText().defaultValue("Muster")
 						.input("street").label("Street").setTypeToText().defaultValue("Musterweg 23")
@@ -23,6 +23,6 @@ public class Main {
 					 .generate();
 		
 		HtmlGenerator generator = new HtmlGenerator();
-		generator.generate(f, "./");
+		generator.generate(f, ".");
 	}
 }

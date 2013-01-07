@@ -15,10 +15,4 @@ public class Checkbox extends Element {
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
-
-	public String toHtml() {
-		String checkedString = checked ? "checked=\"checked\" " : "";
-		return "\t<input type=\"checkbox\" name=\"" + id + "\" " + checkedString + "/> " + label + "<br />\n";
-	}
-
 }
