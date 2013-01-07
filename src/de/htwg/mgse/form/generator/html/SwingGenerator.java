@@ -37,8 +37,11 @@ public class SwingGenerator implements IGenerator {
 	
 	@Override
 	public boolean generate(Form form, String outputPath) {
+		String name = form.getId();
+		name = name.substring(0, 1).toUpperCase() + name.substring(1);
+		
 		setupImports();
-		setupClassBegin(form.getId());
+		setupClassBegin(name);
 
 //		JFrame frame = new JFrame("Formular");
 		// frame.setBounds(0, 0, 400, 800);
@@ -175,7 +178,7 @@ public class SwingGenerator implements IGenerator {
 		
 		setupClassEnd();
 		try {
-			saveToFile(sb.toString(), outputPath + "/" + form.getId() + ".java");
+			saveToFile(sb.toString(), outputPath + "/" + name + ".java");
 		} catch (FileNotFoundException e) {
 			return false;
 		}
@@ -194,6 +197,7 @@ public class SwingGenerator implements IGenerator {
 
 	private void setupClassBegin(String name) {
 		appendToSB(sb, "public class " + name + " extends JFrame {", 0);
+		appendToSB(sb, "private static final long serialVersionUID = 1L;", 1);
 		appendToSB(sb, "public static void main(String[] args) {", 1);
 		appendToSB(sb, "new " + name + "();", 2);
 		appendToSB(sb, "}", 1);
