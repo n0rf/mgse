@@ -24,13 +24,4 @@ public class Form {
 	public String getId() {
 		return id;
 	}
-	
-	public String toHtml() {
-		String html = "<form name=\"" + id + "\">\n";
-		for (Element e : elements) {
-			html += e.toHtml();
-		}
-		return html + "</form>\n";
-	}
-
 }

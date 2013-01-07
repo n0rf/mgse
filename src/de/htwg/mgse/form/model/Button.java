@@ -15,15 +15,4 @@ public class Button extends Element {
 	public void setType(ButtonType type) {
 		this.type = type;
 	}
-	
-	public String toHtml() {
-		switch (type) {
-		case SUBMIT:
-			return "\t<input type=\"submit\" name=\"" + id + "\" value=\"" + label + "\" /><br />\n";
-		case RESET:
-			return "\t<input type=\"reset\" name=\"" + id + "\" value=\"" + label + "\" /><br />\n";
-		default:
-			return "\t<input type=\"button\" name=\"" + id + "\" value=\"" + label + "\" /><br />\n";
-		}
-	}
 }

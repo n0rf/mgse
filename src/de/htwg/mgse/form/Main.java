@@ -3,9 +3,7 @@ package de.htwg.mgse.form;
 import static de.htwg.mgse.form.dsl.FormBuilder.*;
 import static de.htwg.mgse.form.model.ButtonType.*;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-
+import de.htwg.mgse.form.generator.html.HtmlGenerator;
 import de.htwg.mgse.form.model.Form;
 
 public class Main {
@@ -24,16 +22,7 @@ public class Main {
 						.button("clickme").label("Click me!").type(SIMPLE)
 					 .generate();
 		
-		String html = f.toHtml();
-		saveToFile(html, "formular.html");
+		HtmlGenerator generator = new HtmlGenerator();
+		generator.generate(f, "./");
 	}
-	
-	public static void saveToFile(String text, String fileName) {
-		try {
-			PrintWriter out = new PrintWriter(fileName);
-			out.println(text);
-			out.close();
-		} catch (FileNotFoundException e) {}
-	}
-
 }
