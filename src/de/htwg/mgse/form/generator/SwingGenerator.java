@@ -1,4 +1,4 @@
-package de.htwg.mgse.form.generator.html;
+package de.htwg.mgse.form.generator;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import de.htwg.mgse.form.generator.IGenerator;
 import de.htwg.mgse.form.model.Button;
 import de.htwg.mgse.form.model.ButtonType;
 import de.htwg.mgse.form.model.Checkbox;
@@ -27,7 +26,7 @@ public class SwingGenerator implements IGenerator {
 		name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
 		setupImports();
-		setupClassBegin(name);
+		setupClassBegin(name, form.getName());
 
 		// key: field name; value: default
 		Map<String, String> defaultValuesTf = new HashMap<String, String>();
@@ -121,7 +120,7 @@ public class SwingGenerator implements IGenerator {
 		appendToSB(sb, "}", 0);
 	}
 
-	private void setupClassBegin(String name) {
+	private void setupClassBegin(String name, String title) {
 		appendToSB(sb, "public class " + name + " extends JFrame {", 0);
 		appendToSB(sb, "private static final long serialVersionUID = 1L;", 1);
 		appendToSB(sb, "public static void main(String[] args) {", 1);
@@ -129,7 +128,7 @@ public class SwingGenerator implements IGenerator {
 		appendToSB(sb, "}", 1);
 
 		appendToSB(sb, "public " + name + "() {", 1);
-		appendToSB(sb, "setTitle(\"" + name + " Formular\");", 2);
+		appendToSB(sb, "setTitle(\"" + title + "\");", 2);
 		appendToSB(sb, "JPanel container = new JPanel();", 2);
 		appendToSB(sb, "container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));", 2);
 	}

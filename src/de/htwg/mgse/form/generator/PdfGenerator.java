@@ -14,9 +14,12 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfAction;
+import com.itextpdf.text.pdf.PdfAnnotation;
 import com.itextpdf.text.pdf.PdfBorderDictionary;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfFormField;
 import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPCellEvent;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PushbuttonField;
@@ -24,6 +27,41 @@ import com.itextpdf.text.pdf.TextField;
 
 public class PdfGenerator implements IGenerator {
 
+	class FieldCell implements PdfPCellEvent{
+		
+		PdfFormField formField;
+		PdfWriter writer;
+		int width;
+		
+		public FieldCell(PdfFormField formField, int width, 
+			PdfWriter writer){
+			this.formField = formField;
+			this.width = width;
+			this.writer = writer;
+		}
+
+		public void cellLayout(PdfPCell cell, Rectangle rect, PdfContentByte[] canvas) {
+			try{
+				// delete cell border
+				PdfContentByte cb = canvas[PdfPTable
+					.LINECANVAS];
+				cb.reset();
+				
+				formField.setWidget(
+					new Rectangle(rect.getLeft(), 
+						rect.getBottom(),
+						rect.getLeft()+width, 
+						rect.getTop()),
+						PdfAnnotation
+						.HIGHLIGHT_NONE);
+				
+				writer.addAnnotation(formField);
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+	
 	@Override
 	public boolean generate(Form form, String outputPath) {
 		
@@ -31,7 +69,7 @@ public class PdfGenerator implements IGenerator {
 		PdfWriter writer = null;
 		try {
 			writer = PdfWriter.getInstance(document, 
-				new FileOutputStream("form.pdf"));
+				new FileOutputStream(outputPath + "/" + form.getId() + ".pdf"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

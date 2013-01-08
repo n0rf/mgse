@@ -1,9 +1,8 @@
-package de.htwg.mgse.form.generator.html;
+package de.htwg.mgse.form.generator;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-import de.htwg.mgse.form.generator.IGenerator;
 import de.htwg.mgse.form.model.Button;
 import de.htwg.mgse.form.model.Checkbox;
 import de.htwg.mgse.form.model.Element;
