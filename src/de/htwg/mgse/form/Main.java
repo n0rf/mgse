@@ -3,8 +3,8 @@ package de.htwg.mgse.form;
 import static de.htwg.mgse.form.dsl.FormBuilder.*;
 import static de.htwg.mgse.form.model.ButtonType.*;
 
-import de.htwg.mgse.form.generator.PdfGenerator;
 import de.htwg.mgse.form.generator.html.HtmlGenerator;
+import de.htwg.mgse.form.generator.html.SwingGenerator;
 import de.htwg.mgse.form.model.Form;
 
 public class Main {
@@ -23,10 +23,10 @@ public class Main {
 						.button("clickme").label("Click me!").type(SIMPLE)
 					 .generate();
 		
-		HtmlGenerator htmlGenerator = new HtmlGenerator();
-		htmlGenerator.generate(f, ".");
+		HtmlGenerator generator = new HtmlGenerator();
+		generator.generate(f, ".");
 		
-		PdfGenerator pdfGenerator = new PdfGenerator();
-		pdfGenerator.generate(f, ".");
+		SwingGenerator swGen = new SwingGenerator();
+		swGen.generate(f, "./");
 	}
 }

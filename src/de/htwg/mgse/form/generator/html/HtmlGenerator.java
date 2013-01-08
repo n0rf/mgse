@@ -36,7 +36,7 @@ public class HtmlGenerator implements IGenerator {
 		}
 		html += "</fieldset></form></body></html>\n";
 		try {
-			saveToFile(html, outputPath + "/form.html");
+			saveToFile(html, outputPath + "/" + form.getId() + ".html");
 		} catch (FileNotFoundException e) {
 			return false;
 		}
