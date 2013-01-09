@@ -142,6 +142,8 @@ public class PdfGenerator implements IGenerator {
         onOff[1].stroke();
         Rectangle rect = new Rectangle(0, 0, 25, 25);
         RadioCheckField checkField = new RadioCheckField(writer, rect, checkbox.getId(), "On");
+        checkField.setChecked(checkbox.isChecked());
+        checkField.setCheckType(RadioCheckField.TYPE_CROSS);
         PdfFormField formField = null;
 		try {
 			formField = checkField.getCheckField();
@@ -151,7 +153,6 @@ public class PdfGenerator implements IGenerator {
         formField.setAppearance(PdfAnnotation.APPEARANCE_NORMAL, "Off", onOff[0]);
         formField.setAppearance(PdfAnnotation.APPEARANCE_NORMAL, "On", onOff[1]);
         formField.setDefaultValueAsName(checkbox.isChecked() ? "On" : "Off");
-        formField.setValueAsName(checkbox.isChecked() ? "On" : "Off");
         PdfPCell cell = new PdfPCell();
 		cell.setMinimumHeight(25);
 		try {
